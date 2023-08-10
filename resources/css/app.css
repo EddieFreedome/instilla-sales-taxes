@@ -1,3 +1,100 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* .card-container:last-child {
+    padding-right: 0;
+} */
+
+body {
+    background-color: #f6f7fc;
+}
+
+.cart-btn {
+    background-color: #08c6c0;
+    color: #ffff;
+    font-weight: 600;
+    border-radius: 5px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    /* margin-top: 12px; */
+}
+
+.img-container {
+    margin-bottom: 12px;
+}
+
+.hr {
+    height: 1px;
+    background-color: rgba(119, 136, 153, 0.412);
+}
+
+/* HTML TABLE STYLE */
+
+table {
+    border-radius: 6px;
+}
+
+th, td {
+    /* border-top: 1px solid black; */
+    padding: 12px 24px;
+}
+
+/* th {
+    border-bottom: 1px solid rgba(119, 136, 153, 0.496);
+} */
+
+
+/* per html table
+tr td:nth-child(3) {
+    text-align: center;
+} */
+
+/* tr td:nth-child(4) {
+    text-align: center;
+}
+
+tr td:nth-child(1) {
+    font-weight: 600;
+} */
+
+
+/* custom table */
+
+.custom-table .thead{
+    padding-bottom: 6px;
+    border-bottom: 1px solid lightslategray;
+}
+/* .thead div:nth-child(3) {
+    text-align: center;
+} */
+
+/* .thead div:nth-child(4) {
+    text-align: center;
+} */
+
+.thead {
+    font-weight: 600;
+} 
+
+.custom-rad {
+    border-radius: 6px;
+}
+
+a i {
+    color:red;
+}
+
+.card img {
+    border-radius: 6px;
+    box-shadow:  black;
+}
+
+/* .tbody {
+
+} */
+
+/* border-top: 1px solid black; */
+/* .tr, .tr div {
+    padding: 12px 24px;
+} */
