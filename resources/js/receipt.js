@@ -13,12 +13,17 @@ $(function (){
     
 });
 
-Document.addEven
 
 window.addEventListener('load', function () {
 
 
-    let cart
+    let cart = window.cart;
+
+
+    function calculateTax(params) {
+        
+    }
+    //onclick generateReceipt
     
     // console.log(cart);
     // function addToCart() {

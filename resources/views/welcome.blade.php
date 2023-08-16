@@ -255,7 +255,7 @@
                 <div class="custom-table custom-rad md:px-10 md:py-6 grid bg-white md:mb-10 w-full md:mt-10 shadow-md shadow-gray-500/10">
 
                     {{-- table head --}}
-                    <div class="thead grid grid-cols-12 md:mb-9">   
+                    <div class="thead grid grid-cols-12 ">   
 
                         <div class="col-span-6">PRODUCT</div>
                         <div class="col-span-1 text-start">IMPORTED</div>
@@ -267,34 +267,93 @@
 
 
                     {{-- table body --}}
-                    <div class="tbody grid grid-cols-12 ">
-                        {{-- foreach i_in_cart --}}
+                    {{-- @dd($cart_items) --}}
+                    {{-- rendere dinamico --}}
 
-                        <div class="col-span-6">
-                            <p>Bottle of perfume</p>
-                        </div>
-
-                        <div class="col-span-1 text-start">
-                            <p>Yes</p>
-                        </div>
-
-                        <div class="col-span-2 text-end">
-                            <p>$ 19.99</p>
-                        </div>
-
-                        <div class="col-span-2 text-end">
-                            <p>$ 0.05</p>
-                        </div>
-
-                        <div class="col-span-1 text-end ">
-                            
-                            <a href="">
-                                <i class="col-span-1 fa fa-trash h-3 ml-2" aria-hidden="true"></i>
-                            </a>
-
-                        </div>
+                    @foreach($cart_items as $item)
                         
-                    </div>
+                        <div class="tbody">
+                            {{-- foreach i_in_cart --}}
+                            <div class="body-row grid grid-cols-12">
+
+                                <div class="col-span-6 md:py-6">
+                                    <p class="name">{{ $item['name'] }}</p>
+                                </div>
+        
+                                <div class="col-span-1 text-start md:py-6">
+                                    <p class="imported">Yes/No</p>
+                                </div>
+        
+                                <div class="col-span-2 text-end md:py-6">
+                                    <p class="price">{{ '$ '.$item['price'] }}</p>
+                                </div>
+                                
+                                {{-- Aggiungere tariffa importazione --}}
+                                {{-- && $item['imported'] === '1' --}}
+                                @if($item['category'] === 'books' || $item['category'] === 'food' || $item['category'] === 'medical-products')
+
+                                    @if($item['imported'] === 1)
+
+                                        <div class="col-span-2 text-end md:py-6">
+                                            <p class="tax"> {{ '$ '.($item['price']*$import_duty)/100 }} </p>
+                                        </div>
+                                    @endif
+
+                                @else
+
+                                        @if($item['imported'] === 1)
+                                        
+                                            <div class="col-span-2 text-end md:py-6">
+                                                <p class="tax"> {{ (  ($item['price']*$vat)/100) }} </p>
+                                            </div>
+
+                                        @else
+
+                                            <div class="col-span-2 text-end md:py-6">
+                                                <p class="tax"> {{ '$ '.($item['price']*$vat)/100 }} </p>
+                                            </div>  
+
+
+                                        @endif
+
+
+                                @endif
+
+                                {{-- @switch($item['imported'])
+                                    @case($item['imported'] === 1)
+                                        
+                                        @if ($item['category'])
+                                            
+                                        
+                                        @endif
+
+                                    @break
+                                    
+                                    @case($item['imported'] === 0)
+                                        
+                                    @break
+                                    
+
+
+                                    @default
+
+
+                                        
+                                @endswitch --}}
+                                    
+        
+                                <div class="col-span-1 text-end md:py-6">
+                                    
+                                    <a href="">
+                                        <i class="col-span-1 fa fa-trash h-3 ml-2" aria-hidden="true"></i>
+                                    </a>
+        
+                                </div>
+
+                            </div>
+                            
+                        </div>
+                    @endforeach
 
 
 
@@ -574,7 +633,7 @@
             
         // });
                     
-
+            
 
 
         // });
@@ -587,7 +646,7 @@
                 e.preventDefault();
     
                 let route = "{{ route('add.cart') }}";
-                let cartItems = {!! json_encode($cart_items->toArray()) !!}
+                let cartItems = {!! json_encode($cart_items) !!}
                 let cardId = Number($(this).attr("cardId"))
                 console.log(cardId);
                 
@@ -625,7 +684,8 @@
                         },
                         dataType: "json",
                         success: function (response) {
-                            // console.log(response.cart);
+                            // response = $.parseJSON(response);
+                            console.log(response);
 
 
                             //stavi scrivendo il success : per ogni elemento nel carrello (all'index)
@@ -634,8 +694,70 @@
                             //ogni volta che si aggiunge un elemento, al success, si inietta html sul
                             //front che aggiunge una riga alla tabella; si seleziona da cart l'elemento col product id e
                             //con i dati si popola il dettaglio del front
-                            cart = response.cart_items
-                            console.log(cart, 'cart');
+                            cart = response.newProduct
+                            console.log(cart);
+                            
+                            // let r = $(`<div class="body-row grid grid-cols-12"><div class="col-span-6 md:py-6"><p class="title"> testtttttt </p>
+                            //         </div>
+                            //         <div class="col-span-1 text-start md:py-6">
+                            //             <p class="imported">Yes</p>
+                            //         </div>
+                            //         <div class="col-span-2 text-end md:py-6">
+                            //             <p class="price">$ 19.99</p>
+                            //         </div>
+                            //         <div class="col-span-2 text-end md:py-6">
+                            //             <p class="tax">$ 0.05</p>
+                            //         </div>
+                            //         <div class="col-span-1 text-end md:py-6">
+                                        
+                            //             <a href="">
+                            //                 <i class="col-span-1 fa fa-trash h-3 ml-2" aria-hidden="true"></i>
+                            //             </a>
+
+                            //         </div>
+                            //     </div>
+
+
+                            // `);
+                            // .$(.'body-row').append(content);
+                            
+                            
+
+                            let row = {
+
+                                'container': `<div class="body-row grid grid-cols-12">`,
+                                'title': `<div class="col-span-6 md:py-6"><p class="title"> ${cart.title} </p></div>`,
+                                'imported': `<div class="col-span-1 text-start md:py-6"><p class="imported">${cart.imported}</p></div>`,
+                                'price': `<div class="col-span-2 text-end md:py-6"><p class="price"> ${cart.price} </p></div>`,
+                                'tax': `<div class="col-span-2 text-end md:py-6"><p class="tax">${cart.tax}</p></div>`,
+                                'end': '</div>'
+
+
+                            };
+                            //div di row da chiiusere alla fine
+                            // let container = `<div class="body-row grid grid-cols-12">`;
+                            // let title = `<div class="col-span-6 md:py-6"><p class="title"> ${cart.title} </p></div>`;
+                            // let imported = `<div class="col-span-1 text-start md:py-6"><p class="imported">Yes</p></div>`;
+                            // let price = `<div class="col-span-2 text-end md:py-6"><p class="price">$ 19.99</p></div>`;
+                            // let tax = `<div class="col-span-2 text-end md:py-6"><p class="tax">$ 0.05</p></div>`;
+                            
+                            let bodyTable = $('.tbody');
+
+                            // $.each(row, function (i, valueOfElement) { 
+                            //     bodyTable.append(row.i);
+                                 
+                            // });
+                            
+                            
+                            
+                            console.log(row);
+                            
+                            
+                            
+                            
+                            
+                            
+                            // return cart
                             // if (response.success) {
                             //     console.log('arriva');
                             //     alert(response.responseText);
@@ -644,9 +766,10 @@
                             //     alert('errore');
                             // }       
                             
-                        } //error: function (response) {
-                        //        alert("error!");  // 
-                        //    };
+                        },
+                        error: function (response) {
+                            alert("error!");  // 
+                        }
                     });
                 }
     
