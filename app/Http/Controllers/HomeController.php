@@ -115,24 +115,123 @@ class HomeController extends Controller
         
         // dalla response, seleziona i prodotti che compaiono solo nel carrello a db (dove l'indice della response = product_id cart; 
         $cart_items = Cart::all()->toArray();
+        
+        
+        //TODO --- aggiungere campo tax! 
+
+        //1.  Se il prodotto e' gia' salvato nel Cart, 
+        //query del prodotto tramite product_id per recuperare il prezzo
+        
+        //2. Fare le logiche per calcolare la tassa e aggiungere il campo
+        //tassa al $cart_items per restituirlo alla view
+
+
+        // dd($cart_items);
 
             // array creation as colletion of products in cart (built as array)
             for ($i=0; $i < count($cart_items); $i++) { 
                 
                 foreach ($products as $product) {
 
-                    if ( $cart_items[$i]['product_id'] === $product['id'] ) {
+                    if ( $product['id'] === $cart_items[$i]['product_id'] ) {
                         
                         $cart_items[$i]['name'] = $product['name'];
                         $cart_items[$i]['price'] = $product['price'];
                         $cart_items[$i]['category'] = $product['category'];
+
+
+                        $price = $cart_items[$i]['price'];
+
+                        switch ($cart_items[$i]['category']) {
+                            case 'books':
+                            case 'food':
+                            case 'medical-products':
+                                
+                                if($cart_items[$i]['imported'] === 1){
+                            
+                                    $tax = round(($price*$import_duty/100), 2);
+                                    $cart_items[$i]['tax'] = $this->rndfn($tax);
     
+                                } else {
+                                    $cart_items[$i]['tax'] = 0.00;
+                                }
+                                
+                                break;
+                            
+                            default:
+
+                                if($cart_items[$i]['imported'] === 1){
+                                
+                                    $tax = round(($price*($vat + $import_duty)/100), 2);
+                                    $cart_items[$i]['tax'] = $this->rndfn($tax);
+                                
+                                } else {
+
+                                    $tax = round(($price*$vat/100), 2);
+                                    $cart_items[$i]['tax'] = $this->rndfn($tax);
+                                }
+                                
+                                break;
+                        }
+
+                        
+                        // if ($cart_items[$i]['category'] === 'books' || $cart_items[$i]['category'] === 'food' || $cart_items[$i]['category'] === 'medical-products'){
+
+
+                        //     if($cart_items[$i]['imported'] === 1){
+                            
+                        //         $tax = round(($price*$import_duty/100), 2);
+                        //         $cart_items[$i]['tax'] = rndfn($tax);
+
+                        //     } else {
+                        //         $cart_items[$i]['tax'] = 0.00;
+                        //     }
+                        
+
+                        // } else {
+
+                        //     // {{-- da RIPRENDERE --}}
+                        //     if($cart_items[$i]['imported'] === 1){
+                            
+                        //         $tax = round(($price*($vat + $import_duty)/100), 2);
+                        //         $cart_items[$i]['tax'] = rndfn($tax);
+
+
+                        //     } else {
+                        //         $tax = round(($price*$vat/100), 2);
+                        //         $cart_items[$i]['tax'] = rndfn($tax);
+
+                        //     }
+                        // };
+                            
+
+
+                    
+
+
+
+
+
+
+
+
+
+
+
+
                     };
                 };
             };
 
-            // dd($cart_items);
+
+
         
+        
+        
+
+
+
+
         return view('welcome', compact('products', 'cart_items', 'vat', 'import_duty'));
     }
 
@@ -210,5 +309,13 @@ class HomeController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    // CUSTOM FUNCTIONS
+
+    // Funzione per approssimare...
+    public function rndfn($x){
+        return round($x * 2, 1)/2;
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->float('price', 4, 2);
-            $table->boolean('imported')->nullable();
+            // $table->boolean('imported')->nullable(); //enable to set prior imported product
             $table->integer('duty');
             $table->timestamps();
         });

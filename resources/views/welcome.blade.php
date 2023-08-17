@@ -273,51 +273,34 @@
                     @foreach($cart_items as $item)
                         
                         <div class="tbody">
-                            {{-- foreach i_in_cart --}}
+                            
                             <div class="body-row grid grid-cols-12">
 
                                 <div class="col-span-6 md:py-6">
                                     <p class="name">{{ $item['name'] }}</p>
                                 </div>
-        
+                                
+                                {{-- Imported --}}
                                 <div class="col-span-1 text-start md:py-6">
-                                    <p class="imported">Yes/No</p>
-                                </div>
+                                    @if($item['imported'] === 1)
+                                        <p class="imported">Yes</p>
+                                    @else
+                                        <p class="imported">No</p>
+                                    @endif
+                                </div>    
+                                
         
                                 <div class="col-span-2 text-end md:py-6">
-                                    <p class="price">{{ '$ '.$item['price'] }}</p>
+                                    <p class="price"> {{ '$ '.$item['price'] }} </p>
+                                </div>
+
+                                <div class="col-span-2 text-end md:py-6">
+                                    <p class="tax"> {{ '$ '.$item['tax'] }} </p>
                                 </div>
                                 
                                 {{-- Aggiungere tariffa importazione --}}
                                 {{-- && $item['imported'] === '1' --}}
-                                @if($item['category'] === 'books' || $item['category'] === 'food' || $item['category'] === 'medical-products')
-
-                                    @if($item['imported'] === 1)
-
-                                        <div class="col-span-2 text-end md:py-6">
-                                            <p class="tax"> {{ '$ '.($item['price']*$import_duty)/100 }} </p>
-                                        </div>
-                                    @endif
-
-                                @else
-
-                                        @if($item['imported'] === 1)
-                                        
-                                            <div class="col-span-2 text-end md:py-6">
-                                                <p class="tax"> {{ (  ($item['price']*$vat)/100) }} </p>
-                                            </div>
-
-                                        @else
-
-                                            <div class="col-span-2 text-end md:py-6">
-                                                <p class="tax"> {{ '$ '.($item['price']*$vat)/100 }} </p>
-                                            </div>  
-
-
-                                        @endif
-
-
-                                @endif
+                                
 
                                 {{-- @switch($item['imported'])
                                     @case($item['imported'] === 1)
@@ -775,6 +758,8 @@
     
                 // console.log(cartItems[0].product_id);
             });
+
+            
         });
 
     </script>
