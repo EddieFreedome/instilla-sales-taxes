@@ -66,14 +66,15 @@
                             
                             <div class="img-container relative h-52 bg-white ">
                                 <img class="shadow-sm shadow-black/30 h-full w-full object-contain" src="{{ $products[$i]['image'] }}" alt="">
+
+                                <div class="bg-black custom-rad p-2  text-white text-xs flex items-center justify-center absolute bottom-2 left-2">
+                                    <i class="fa fa-tag mr-2" aria-hidden="true"></i>
+                                    <p class="text-white"> {{ strtoupper($products[$i]['category']) }} </p>
+     
+                                </div>
                             </div>
         
 
-                            {{-- <div class="bg-black custom-rad p-10 text-white flex items-center justify-center">
-                                <i class="fa fa-tag mr-2" aria-hidden="true"></i>
-                                <p class="text-white"> {{ $products[$i]['category'] }} </p>
- 
-                            </div> --}}
 
 
                             <h3 class="card-title md:text-2xl font-bold ">
