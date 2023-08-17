@@ -56,56 +56,56 @@ class HomeController extends Controller
         
         
         // $this->response['response'] = json_decode($output);
-        // $response = Http::get('https://instilla-sales-tax-problem.s3.eu-central-1.amazonaws.com/sales-tax-problem-test.json');
+        $response = Http::get('https://instilla-sales-tax-problem.s3.eu-central-1.amazonaws.com/sales-tax-problem-test.json');
         // dd($response);
-        $response =[
-            array(
-                "name"=> "The Lord of the Rings",
-                "price"=> "50.50",
-                "category"=> "books",
-                "image"=> "",
-            ),
-            array(
-                "name"=> "Game of Thrones",
-                "price"=> "25.00",
-                "category"=> "books",
-                "image"=> ""
-            ),
-            array(
-                "name"=> "Chocolate bar",
-                "price"=> "9.99",
-                "category"=> "food",
-                "image"=> ""
-            ),
-            array(
-                "name"=> "Box of chocolates",
-                "price"=> "14.99",
-                "category"=> "food",
-                "image"=> ""
-            ),
-            array(
-                "name"=> "Headache pills",
-                "price"=> "15.00",
-                "category"=> "medical-products",
-                "image"=> ""
-            ),
-            array(
-                "name"=> "Music CD",
-                "price"=> "10.00",
-                "category"=> "other",
-                "image"=> ""
-            ),
-            array(
-                "name"=> "Bottle of perfume",
-                "price"=> "50.50",
-                "category"=> "other",
-                "image"=> ""
-            )
-            ];
+        // $response =[
+        //     array(
+        //         "name"=> "The Lord of the Rings",
+        //         "price"=> "50.50",
+        //         "category"=> "books",
+        //         "image"=> "",
+        //     ),
+        //     array(
+        //         "name"=> "Game of Thrones",
+        //         "price"=> "25.00",
+        //         "category"=> "books",
+        //         "image"=> ""
+        //     ),
+        //     array(
+        //         "name"=> "Chocolate bar",
+        //         "price"=> "9.99",
+        //         "category"=> "food",
+        //         "image"=> ""
+        //     ),
+        //     array(
+        //         "name"=> "Box of chocolates",
+        //         "price"=> "14.99",
+        //         "category"=> "food",
+        //         "image"=> ""
+        //     ),
+        //     array(
+        //         "name"=> "Headache pills",
+        //         "price"=> "15.00",
+        //         "category"=> "medical-products",
+        //         "image"=> ""
+        //     ),
+        //     array(
+        //         "name"=> "Music CD",
+        //         "price"=> "10.00",
+        //         "category"=> "other",
+        //         "image"=> ""
+        //     ),
+        //     array(
+        //         "name"=> "Bottle of perfume",
+        //         "price"=> "50.50",
+        //         "category"=> "other",
+        //         "image"=> ""
+        //     )
+        //     ];
 
         // dd($response);
-        $products = $response;
-        // $products = $response->json();
+        // $products = $response;
+        $products = $response->json();
         // dd($products[0]);
 
         //push dentro singolo product per aggiungere product_id = index (di array response)
@@ -174,61 +174,9 @@ class HomeController extends Controller
                                 break;
                         }
 
-                        
-                        // if ($cart_items[$i]['category'] === 'books' || $cart_items[$i]['category'] === 'food' || $cart_items[$i]['category'] === 'medical-products'){
-
-
-                        //     if($cart_items[$i]['imported'] === 1){
-                            
-                        //         $tax = round(($price*$import_duty/100), 2);
-                        //         $cart_items[$i]['tax'] = rndfn($tax);
-
-                        //     } else {
-                        //         $cart_items[$i]['tax'] = 0.00;
-                        //     }
-                        
-
-                        // } else {
-
-                        //     // {{-- da RIPRENDERE --}}
-                        //     if($cart_items[$i]['imported'] === 1){
-                            
-                        //         $tax = round(($price*($vat + $import_duty)/100), 2);
-                        //         $cart_items[$i]['tax'] = rndfn($tax);
-
-
-                        //     } else {
-                        //         $tax = round(($price*$vat/100), 2);
-                        //         $cart_items[$i]['tax'] = rndfn($tax);
-
-                        //     }
-                        // };
-                            
-
-
-                    
-
-
-
-
-
-
-
-
-
-
-
-
                     };
                 };
             };
-
-
-
-        
-        
-        
-
 
 
 
