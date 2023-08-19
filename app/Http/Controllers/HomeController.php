@@ -200,33 +200,95 @@ class HomeController extends Controller
     public function addToCart(Request $request)
     {
         if ($request->ajax()) {
+            
+            // dd('Woah, welcome!');
+            $vat = 10;
+            $import_duty = 5;
 
-            // dd('okkkkk');
+            $response = Http::get('https://instilla-sales-tax-problem.s3.eu-central-1.amazonaws.com/sales-tax-problem-test.json');
+            $products = $response->json();
+            // dd( $request->all() );
             $imported = $request['imported'];
             $card_id = $request['cardId'];
+
+            // pushing id inside product element
+            for ($i=0; $i < count($products); $i++) { 
+                $products[$i]['id'] = $i+1;    
+            };
             
+            // dd($products);
+
             $new_item = new Cart();
             $new_item->product_id = $card_id;
             $new_item->imported = $imported;
             // dd($new_item);
             $new_item->save();
-            
-            $new_item = Product::where('id', $card_id)->get()->toArray();
-            // dd($new_item);
-            //check cart items (for list)
+
+
+
+            // Assembly of selected item, adding import and id from the request
+            for ($i=0; $i < count($products); $i++) { 
+
+                if ( strval($products[$i]['id']) === $card_id ) {
+                    
+                    // dd('here');  
+                    $new_item->name = $products[$i]['name'];
+                    $new_item->price = $products[$i]['price'];
+                    $new_item->category = $products[$i]['category'];
+                    $new_item->imported = $imported;
+    
+                    $price = $new_item->price;
+
+                    // tax calculator --> function soon
+                    switch ($new_item->category) {
+                        case 'books':
+                        case 'food':
+                        case 'medical-products':
+                            
+                            if($new_item->imported === '1'){
+                                $tax = round(($price*$import_duty/100), 2);
+                                $new_item->tax = $this->rndfn($tax);
+                                $new_item->tax = number_format((float)$new_item->tax, 2, '.', '');
+                            } else {
+                                $new_item->tax = '0.00';
+                            }
+                            
+                            break;
+                        
+                        default:
+    
+                            if($new_item->imported === '1'){
+                            
+                                $tax = round(($price*($vat + $import_duty)/100), 2);
+                                $new_item->tax = strval($this->rndfn($tax));
+                                $new_item->tax = number_format((float)$new_item->tax, 2, '.', '');
+                                
+                            } else {
+    
+                                $tax = round(($price*$vat/100), 2);
+                                $new_item->tax = strval($this->rndfn($tax));
+                                $new_item->tax = number_format((float)$new_item->tax, 2, '.', '');
+
+                            }
+                            
+                            break;
+                    };
+                    
+                    if ($imported === '1') {
+                        $new_item->imported = "Yes";
+                    } else {
+                        $new_item->imported = "No";
+                    };
+                };
+            }
+   
             
             $data = [
-                // 'success' => true,
-                // 'message'=> 'Your AJAX processed correctly',
                 'cart_items' => Cart::all(),
-                'new_item' => $new_item,
+                'products' => $products,
+                'saved_item' => $new_item,
             ];
             
-            // dd($data);
-            
-            
-
-
             return response()->json($data);
         };
     }
@@ -270,4 +332,46 @@ class HomeController extends Controller
     public function rndfn($x){
         return round($x * 2, 1)/2;
     }
+
+    // public function getTaxes($x , $vat, $import_duty){
+    //     switch ($x['category']) {
+    //         case 'books':
+    //         case 'food':
+    //         case 'medical-products':
+                
+    //             if($x['imported'] === 1){
+            
+    //                 $tax = round(($x['price']*$import_duty/100), 2);
+    //                 $x['tax'] = $this->rndfn($tax);
+
+    //                 return $saved_item['tax'] = $x['tax'];
+
+    //             } else {
+    //                 $x['tax'] = 0.00;
+    //                 return $saved_item['tax'] = $x['tax'];
+
+    //             }
+                
+    //             break;
+            
+    //         default:
+
+    //             if($x['imported'] === 1){
+                
+    //                 $tax = round(($x['price']*($vat + $import_duty)/100), 2);
+    //                 $x['tax'] = $this->rndfn($tax);
+
+    //                 return $saved_item['tax'] = $x['tax'];
+                    
+    //             } else {
+
+    //                 $tax = round(($x['price']*$vat/100), 2);
+    //                 $saved_item['tax'] = $this->rndfn($tax);
+                    
+    //                 return $saved_item['tax'] = $x['tax'];
+    //             }
+                
+    //             break;
+    //     }
+    // }
 }

@@ -59,7 +59,6 @@
     
                 <div class="card-container grid grid-cols-4 gap-9 ">
     
-                    @dump($products)
                     @for($i = 0; $i < count($products); $i++)
                         
                         <div class="card" productId="{{ $i }}">
@@ -132,16 +131,18 @@
 
 
                     {{-- table body --}}
-                    {{-- @dd($cart_items) --}}
-                    {{-- rendere dinamico --}}
-                    <div class="tbody">
-                        <div class="body-row grid grid-cols-12">
-                            @if($cart_items)
-                                
-                                @foreach($cart_items as $item)
-                                
 
-                                    <div class="col-span-6 md:py-6">
+                    {{-- @dd($cart_items) --}}
+
+                    <div class="tbody">
+                        {{-- @dd($cart_items) --}}
+                        @if( $cart_items !== null )
+                        
+                            @foreach($cart_items as $item)
+                        
+                                <div class="body-row grid grid-cols-12">
+
+                                    <div class="col-span-6 md:py-6 font-bold">
                                         <p class="name">{{ $item['name'] }}</p>
                                     </div>
                                     
@@ -173,11 +174,13 @@
             
                                     </div>
 
+                                </div>
                                     
-                                @endforeach
-                                
-                            @endif
-                        </div>
+                            @endforeach
+                        @else
+                         
+                         {{-- <div>NULL</div> --}}
+                        @endif
                     </div>
 
 
@@ -374,35 +377,78 @@
                         data: {
                             imported : checkedVal,
                             cardId : $(this).find('.cardId').attr('cardId'),
+                            // products : 
                         },
 
                         dataType:'json',
-                        encode: true,
+                        // encode: true,
                         // contentType: false, //come processData
                         cache: false,
                         // processData: false, //questo paramentro non ammette a jquery di processare gli oggertti che mando in chiamata... non arrivavano al controller
                         
                         success:function(response){
-                            alert(response)
-                        }
-                    }).done(function(response){
-                        console.log(response);
-                    });
-                // console.log( let str = $(this).serialize() );
+                            
+                            
+                            let savedItem = response.saved_item;
+                            console.log(response);
+                            
+                            let table = $('.tbody');
+                            let tableRow = $('.body-row');
 
-                // form_data = new FormData()
-                // let cardId = Number($(this).attr("cardId"))
+                            const imported = savedItem['imported'] === 0 ? 'No' : 'Yes';
+                            console.log(imported);
+                            // console.log(tableRow);
+                            
+                            $('.tbody').append(`
+                                
+                                <div class="body-row grid grid-cols-12">
+
+                                    <div class="col-span-6 md:py-6 font-bold">
+                                            <p class="name">  ${savedItem['name']} </p>
+                                        </div>
+                                        
+                                        {{-- Imported --}}
+                                        <div class="col-span-1 text-start md:py-6">
+                                           <p>${savedItem.imported}</p>
+                                        </div>    
+                                        
+                                        
+                                        <div class="col-span-2 text-end md:py-6">
+                                            <p class="price">  $ ${savedItem['price']} </p>
+                                        </div>
+
+                                        <div class="col-span-2 text-end md:py-6">
+                                            <p class="tax">$ ${savedItem['tax']} </p>
+                                        </div>
+                                        
+                                            
                 
-                // let cardId = $("input[name=_token]").val();
-                // let cartItems = {!! json_encode($cart_items) !!}
-                // let cardId = $.attr("cardId")
+                                        <div class="col-span-1 text-end md:py-6">
+                                            
+                                            <a href="">
+                                                <i class="col-span-1 fa fa-trash h-3 ml-2" aria-hidden="true"></i>
+                                            </a>
                 
-                // let form = $(this);
-                // let url = form.attr("action");
-                // let data = new FormData(form);            
-            
-                // console.log(data);
-            
+                                        </div>
+                                </div>
+                            `);
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            // alert(response.new_item)
+                        }
+                    })
+                    
+                // let tableRow = resonse
             });
 
 
