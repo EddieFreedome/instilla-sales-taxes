@@ -116,8 +116,6 @@ class HomeController extends Controller
         // dalla response, seleziona i prodotti che compaiono solo nel carrello a db (dove l'indice della response = product_id cart; 
         $cart_items = Cart::all()->toArray();
         
-        
-        //TODO --- aggiungere campo tax! 
 
         //1.  Se il prodotto e' gia' salvato nel Cart, 
         //query del prodotto tramite product_id per recuperare il prezzo
@@ -178,6 +176,11 @@ class HomeController extends Controller
                 };
             };
 
+            if ($cart_items === []) {
+                $cart_items = null;
+            }
+
+        // dd($products, $cart_items);
 
 
         return view('welcome', compact('products', 'cart_items', 'vat', 'import_duty'));
@@ -196,35 +199,36 @@ class HomeController extends Controller
      */
     public function addToCart(Request $request)
     {
-        // dd($request->all());
+        if ($request->ajax()) {
 
-        //if product id e' gia' stato salvato...
+            // dd('okkkkk');
+            $imported = $request['imported'];
+            $card_id = $request['cardId'];
+            
+            $new_item = new Cart();
+            $new_item->product_id = $card_id;
+            $new_item->imported = $imported;
+            // dd($new_item);
+            $new_item->save();
+            
+            $new_item = Product::where('id', $card_id)->get()->toArray();
+            // dd($new_item);
+            //check cart items (for list)
+            
+            $data = [
+                // 'success' => true,
+                // 'message'=> 'Your AJAX processed correctly',
+                'cart_items' => Cart::all(),
+                'new_item' => $new_item,
+            ];
+            
+            // dd($data);
+            
+            
 
-        
-        $card_id = $request->card_id;
 
-        $new_item = new Cart();
-        $new_item->product_id = $card_id;
-        $new_item->save();
-
-        $t = Product::where('id', $card_id)->get()->toArray();
-        // dd($t);
-        //check cart items (for list)
-        
-        $data = [
-            // 'success' => true,
-            // 'message'=> 'Your AJAX processed correctly',
-            'cartIds' => Cart::all(),
-            'newProduct' => $t,
-            'html' => []
-        ];
-
-
-
-        
-
-
-        return response()->json($data);
+            return response()->json($data);
+        };
     }
 
     /**

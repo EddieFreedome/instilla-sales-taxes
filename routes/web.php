@@ -17,4 +17,4 @@ use App\Http\Controllers\HomeController;
 // Route::get('/', [ HomeController::class, 'home']);
 // Route::get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
 Route::get('/', [HomeController::class,'index']);
-Route::put('/addToCart', [HomeController::class,'addToCart'])->name('add.cart');
+Route::post('/addToCart', [HomeController::class,'addToCart'])->name('add.cart');
