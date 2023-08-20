@@ -140,7 +140,7 @@
                         
                             @foreach($cart_items as $item)
                         
-                                <div class="body-row grid grid-cols-12">
+                                <div class="body-row grid grid-cols-12" cartId= {{$item['id']}}>
 
                                     <div class="col-span-6 md:py-6 font-bold">
                                         <p class="name">{{ $item['name'] }}</p>
@@ -168,9 +168,9 @@
             
                                     <div class="col-span-1 text-end md:py-6">
                                         
-                                        <a href="">
+                                        <button class="delete-btn cursor-pointer text-red-600  ">
                                             <i class="col-span-1 fa fa-trash h-3 ml-2" aria-hidden="true"></i>
-                                        </a>
+                                        </button>
             
                                     </div>
 
@@ -312,31 +312,8 @@
     </body>
 
     <script>
-
-        // $(document).ready( function(){
-         
-            // $('cart-btn').on("click", function (e) {
-            //     e.preventDefault();
-                
-            //     console.log('this');
-            //     // $.ajax({
-            //     //     type: "post",
-            //     //     url: "/addToCart",
-            //     //     data: "Ciao",
-            //     //     dataType: "dataType",
-            //     //     success: function (response) {
-            //     //         console.log('ok');
-            //     //     }
-            //     // });
-            // }); 
-                
-            
-        // });
                     
-            
-
-
-        // });
+        // SUBMIT FORM AND ADD ITEM TO LIST  
         $( document ).ready(function() {
 
             let cart
@@ -355,18 +332,9 @@
                     }
                     // console.log(checkedVal);
 
-                    // let formData = {
-                    //     imported : checkedVal,
-                    //     cardId : $(this).find('.cardId').attr('cardId'),
-
-                    // };
-                    // console.log(formData);
-
-                    // console.log($(this).find('.cardId').attr('cardId'));
-                    // console.log(checkedVal);
 
                     let url = '{{ route('add.cart') }}';
-                    // console.log(formData);
+
                     $.ajax({
                         url: url,
                         headers: {
@@ -401,7 +369,7 @@
                             
                             $('.tbody').append(`
                                 
-                                <div class="body-row grid grid-cols-12">
+                                <div class="body-row grid grid-cols-12" cartId= ${savedItem['id']}>
 
                                     <div class="col-span-6 md:py-6 font-bold">
                                             <p class="name">  ${savedItem['name']} </p>
@@ -425,170 +393,69 @@
                 
                                         <div class="col-span-1 text-end md:py-6">
                                             
-                                            <a href="">
+                                            <button class="delete-btn cursor-pointer text-red-600">
                                                 <i class="col-span-1 fa fa-trash h-3 ml-2" aria-hidden="true"></i>
-                                            </a>
+                                            </button>
                 
                                         </div>
                                 </div>
                             `);
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
+                                                        
                             
                             // alert(response.new_item)
                         }
                     })
                     
-                // let tableRow = resonse
             });
-
-
-
-            // $('.cart-btn').click(function (e) {
-            //     e.preventDefault();
-    
-            //     let route = "{{ route('add.cart') }}";
-            //     let cartItems = {!! json_encode($cart_items) !!}
-            //     let cardId = Number($(this).attr("cardId"))
-            //     console.log(cardId);
-                
-            //     //popola un array js virtuale con i prodotti gia' esistenti
-            //     let arrId = [];
-            //     for (let i = 0; i < cartItems.length; i++) {
-            //         // console.log(cartItems[i].product_id);
-                    
-            //         arrId.push(cartItems[i].product_id) ;
-                    
-            //     }
-                
-            //     console.log(arrId);
-            //     // console.log(arrId.includes(cardId));
-    
-            //     if (arrId.includes(cardId)) {
-            //         //fai un cazz
-            //         console.log("ci sta gia' dentro");
-                    
-            //     } else {
-    
-            //         console.log('ci va dentro');
-    
-    
-    
-    
-            //         $.ajax({
-            //             type: "put",
-            //             headers: {
-            //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),   
-            //             },
-            //             url: route,
-            //             data: {
-            //                 "card_id":cardId   
-            //             },
-            //             dataType: "json",
-            //             success: function (response) {
-            //                 // response = $.parseJSON(response);
-            //                 console.log(response);
-
-
-            //                 //stavi scrivendo il success : per ogni elemento nel carrello (all'index)
-            //                 //crea un elemento sul blade nella lista;
-
-            //                 //ogni volta che si aggiunge un elemento, al success, si inietta html sul
-            //                 //front che aggiunge una riga alla tabella; si seleziona da cart l'elemento col product id e
-            //                 //con i dati si popola il dettaglio del front
-            //                 cart = response.newProduct
-            //                 console.log(cart);
-                            
-            //                 // let r = $(`<div class="body-row grid grid-cols-12"><div class="col-span-6 md:py-6"><p class="title"> testtttttt </p>
-            //                 //         </div>
-            //                 //         <div class="col-span-1 text-start md:py-6">
-            //                 //             <p class="imported">Yes</p>
-            //                 //         </div>
-            //                 //         <div class="col-span-2 text-end md:py-6">
-            //                 //             <p class="price">$ 19.99</p>
-            //                 //         </div>
-            //                 //         <div class="col-span-2 text-end md:py-6">
-            //                 //             <p class="tax">$ 0.05</p>
-            //                 //         </div>
-            //                 //         <div class="col-span-1 text-end md:py-6">
-                                        
-            //                 //             <a href="">
-            //                 //                 <i class="col-span-1 fa fa-trash h-3 ml-2" aria-hidden="true"></i>
-            //                 //             </a>
-
-            //                 //         </div>
-            //                 //     </div>
-
-
-            //                 // `);
-            //                 // .$(.'body-row').append(content);
-                            
-                            
-
-            //                 let row = {
-
-            //                     'container': `<div class="body-row grid grid-cols-12">`,
-            //                     'title': `<div class="col-span-6 md:py-6"><p class="title"> ${cart.title} </p></div>`,
-            //                     'imported': `<div class="col-span-1 text-start md:py-6"><p class="imported">${cart.imported}</p></div>`,
-            //                     'price': `<div class="col-span-2 text-end md:py-6"><p class="price"> ${cart.price} </p></div>`,
-            //                     'tax': `<div class="col-span-2 text-end md:py-6"><p class="tax">${cart.tax}</p></div>`,
-            //                     'end': '</div>'
-
-
-            //                 };
-            //                 //div di row da chiiusere alla fine
-            //                 // let container = `<div class="body-row grid grid-cols-12">`;
-            //                 // let title = `<div class="col-span-6 md:py-6"><p class="title"> ${cart.title} </p></div>`;
-            //                 // let imported = `<div class="col-span-1 text-start md:py-6"><p class="imported">Yes</p></div>`;
-            //                 // let price = `<div class="col-span-2 text-end md:py-6"><p class="price">$ 19.99</p></div>`;
-            //                 // let tax = `<div class="col-span-2 text-end md:py-6"><p class="tax">$ 0.05</p></div>`;
-                            
-            //                 let bodyTable = $('.tbody');
-
-            //                 // $.each(row, function (i, valueOfElement) { 
-            //                 //     bodyTable.append(row.i);
-                                 
-            //                 // });
-                            
-                            
-                            
-            //                 console.log(row);
-                            
-                            
-                            
-                            
-                            
-                            
-            //                 // return cart
-            //                 // if (response.success) {
-            //                 //     console.log('arriva');
-            //                 //     alert(response.responseText);
-            //                 // } else {
-            //                 //     // DoSomethingElse()
-            //                 //     alert('errore');
-            //                 // }       
-                            
-            //             },
-            //             error: function (response) {
-            //                 alert("error!");  // 
-            //             }
-            //         });
-            //     }
-    
-            //     // console.log(cartItems[0].product_id);
-            // });
-
             
         });
+
+        // $(document).ready( function(){
+         
+            
+            
+            
+            $(document).on("click", '.delete-btn', function (e) {
+                e.preventDefault();
+                console.log('clicked on delete');
+
+                let url = '{{ route('delete.item') }}';
+                let deleteBtn = $('.delete-btn');
+
+                let deleteRow = $(this).closest('.body-row');
+                let cartId = $(this).closest('.body-row').attr('cartId');
+
+                //delete frontend when ajax call is succeded!!
+                // $(this.closest('.body-row')).empty();
+
+
+                $.ajax({
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    method:"DELETE",
+
+                    data: {
+                        cartId : cartId,
+                        // products : 
+                    },
+
+                    dataType:'json',
+                    // encode: true,
+                    // contentType: false, //come processData
+                    cache: true,
+                    // processData: false, //questo paramentro non ammette a jquery di processare gli oggertti che mando in chiamata... non arrivavano al controller
+                    
+                    success:function(response){
+                        
+                        console.log(response); 
+                        //delete frontend when ajax call is succeded!!
+                        $(deleteRow.empty());
+                       
+                    }
+                });
+            });
 
     </script>
     

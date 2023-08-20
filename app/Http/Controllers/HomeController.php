@@ -223,7 +223,7 @@ class HomeController extends Controller
             $new_item->imported = $imported;
             // dd($new_item);
             $new_item->save();
-
+            // dd($new_item->id);
 
 
             // Assembly of selected item, adding import and id from the request
@@ -320,9 +320,26 @@ class HomeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        // dd('YO, here!');
+        // dd($request->all());
+        $cart_id = $request['cartId'];
+
+        $del_item = Cart::where('id', $cart_id)->first();
+        if ($del_item) {
+            $del_item->forceDelete();
+        } else {
+            return error('Il prodotto selezionato non risulta nel carrello, si prega di ricaricare la pagina');
+        }
+
+        $data = [
+            'success' => true,
+            'message'=> 'Deleted item correctly'
+          ] ;
+        // dd($del_item);
+        return response()->json($data);
+        
     }
 
 
