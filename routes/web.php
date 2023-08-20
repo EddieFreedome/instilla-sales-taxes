@@ -18,4 +18,5 @@ use App\Http\Controllers\HomeController;
 // Route::get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
 Route::get('/', [HomeController::class,'index']);
 Route::post('/addToCart', [HomeController::class,'addToCart'])->name('add.cart');
+Route::post('/getTotalAmounts', [HomeController::class,'getTotalAmounts'])->name('total.amounts');
 Route::delete('/deleteRecord', [HomeController::class,'destroy'])->name('delete.item');

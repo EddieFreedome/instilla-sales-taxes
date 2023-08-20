@@ -322,7 +322,8 @@ class HomeController extends Controller
      */
     public function destroy(Request $request)
     {
-        // dd('YO, here!');
+        // dd('Hey Yo! Here again!');
+        
         // dd($request->all());
         $cart_id = $request['cartId'];
 
@@ -336,8 +337,8 @@ class HomeController extends Controller
         $data = [
             'success' => true,
             'message'=> 'Deleted item correctly'
-          ] ;
-        // dd($del_item);
+        ] ;
+
         return response()->json($data);
         
     }
@@ -345,50 +346,51 @@ class HomeController extends Controller
 
     // CUSTOM FUNCTIONS
 
-    // Funzione per approssimare...
+    // Funzione per approssimare a 0.05 piu' vicino...
     public function rndfn($x){
         return round($x * 2, 1)/2;
     }
 
     // public function getTaxes($x , $vat, $import_duty){
-    //     switch ($x['category']) {
-    //         case 'books':
-    //         case 'food':
-    //         case 'medical-products':
-                
-    //             if($x['imported'] === 1){
-            
-    //                 $tax = round(($x['price']*$import_duty/100), 2);
-    //                 $x['tax'] = $this->rndfn($tax);
-
-    //                 return $saved_item['tax'] = $x['tax'];
-
-    //             } else {
-    //                 $x['tax'] = 0.00;
-    //                 return $saved_item['tax'] = $x['tax'];
-
-    //             }
-                
-    //             break;
-            
-    //         default:
-
-    //             if($x['imported'] === 1){
-                
-    //                 $tax = round(($x['price']*($vat + $import_duty)/100), 2);
-    //                 $x['tax'] = $this->rndfn($tax);
-
-    //                 return $saved_item['tax'] = $x['tax'];
+    //     //     switch ($x['category']) {
+    //     //         case 'books':
+    //     //         case 'food':
+    //     //         case 'medical-products':
                     
-    //             } else {
-
-    //                 $tax = round(($x['price']*$vat/100), 2);
-    //                 $saved_item['tax'] = $this->rndfn($tax);
-                    
-    //                 return $saved_item['tax'] = $x['tax'];
-    //             }
+    //     //             if($x['imported'] === 1){
                 
-    //             break;
-    //     }
+    //     //                 $tax = round(($x['price']*$import_duty/100), 2);
+    //     //                 $x['tax'] = $this->rndfn($tax);
+
+    //     //                 return $saved_item['tax'] = $x['tax'];
+
+    //     //             } else {
+    //     //                 $x['tax'] = 0.00;
+    //     //                 return $saved_item['tax'] = $x['tax'];
+
+    //     //             }
+                    
+    //     //             break;
+                
+    //     //         default:
+
+    //     //             if($x['imported'] === 1){
+                    
+    //     //                 $tax = round(($x['price']*($vat + $import_duty)/100), 2);
+    //     //                 $x['tax'] = $this->rndfn($tax);
+
+    //     //                 return $saved_item['tax'] = $x['tax'];
+                        
+    //     //             } else {
+
+    //     //                 $tax = round(($x['price']*$vat/100), 2);
+    //     //                 $saved_item['tax'] = $this->rndfn($tax);
+                        
+    //     //                 return $saved_item['tax'] = $x['tax'];
+    //     //             }
+                    
+    //     //             break;
+    //     //     }
     // }
+
 }

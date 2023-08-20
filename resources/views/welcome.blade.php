@@ -182,85 +182,26 @@
                          {{-- <div>NULL</div> --}}
                         @endif
                     </div>
-
-
-
                 </div>
+
+
+
 
                 <div class="text-end w-full">
-    
-                    <a href="" class="cart-btn w-1/4 inline-block text-center ml-9"> GENERATE RECEIPT </a>
+                    <button id="generate-receipt" class="cart-btn w-1/4 inline-block text-center ml-9"> GENERATE RECEIPT </button>
                 </div>
 
 
 
-                {{-- OLD HTML TABLE --}}
-                {{-- <table class="bg-white md:mb-10 w-full shadow-gray-500/40  ">
-                    <thead class="text-start">
-                            <th class="text-start">
-                                <h4>PRODUCT</h4> 
-                            </th>
-                            <th class="text-start">
-                                <h4>IMPORTED</h4> 
-                            </th>
-                            <th class="">
-                                <h4>PRICE</h4> 
-                            </th>
-                            <th class="">
-                                <h4>TAX</h4> 
-                            </th>
-
-                    </thead>
-                    
-                    
-                    <tbody>
-                        
-                        <tr>
-                            <td>Bottle of perfume</td>
-                            <td>No</td>
-                            <td>$ 19.99</td>
-                            <td>$ 0.08</td>
-                        </tr>
-
-                        <tr>
-                            <td>Bottle of perfume</td>
-                            <td>No</td>
-                            <td>$ 19.99</td>
-                            <td>$ 0.08</td>
-                        </tr>
-
-                        <tr>
-                            <td>Headache pills</td>
-                            <td>No</td>
-                            <td>$ 19.99</td>
-                            <td>$ 0.08</td>
-                        </tr>
-
-                        <tr>
-                            <td>Headache pills</td>
-                            <td>No</td>
-                            <td>$ 19.99</td>
-                            <td>$ 0.08</td>
-                        </tr>
-
-                        <tr>
-                            <td>Headache pills</td>
-                            <td>No</td>
-                            <td>$ 19.99</td>
-                            <td>$ 0.08</td>
-                        </tr>
-                    </tbody>
-
-                </table> --}}
 
 
-
+                {{-- RECEIPT section --}}
                 <div class="md:mt-10 grid grid-cols-12">
                     <div class="col-span-5"></div>
                     
                     <div class="col-span-7 bg-white pl-10 py-10 custom-rad shadow-md shadow-gray-500/10">
                         
-                        <div class="grid grid-cols-7 px-10 ">
+                        <div id="totalAmounts" class="grid grid-cols-7 px-10 ">
 
                             <div class="col-span-3 text-start text-3xl font-bold">
                                 Receipt
@@ -270,15 +211,15 @@
                                 <h1 class="text-2xl font-bold">
                                     Total amount
                                 </h1>
-                                <p>Including taxes</p>
+                                <p >Including taxes</p>
                             </div>
 
-                            <div class="col-span-2 text-end ">
-                                <h1 class="text-2xl font-bold  ">
-                                    $ 158.75
+                            <div id="totalPrices" class="col-span-2 text-end ">
+                                <h1 id="amount" class=" text-2xl font-bold  ">
+                                    $ 00.00
                                 </h1>
-                                <p>
-                                    $ 12.78
+                                <p id="taxes">
+                                    $ 00.00 
                                 </p>
                             </div>
 
@@ -315,7 +256,10 @@
                     
         // SUBMIT FORM AND ADD ITEM TO LIST  
         $( document ).ready(function() {
-
+            
+            generateReceipt();
+            
+            
             let cart
             let url = '{{ route('add.cart') }}';
                 //Inviare il form in Ajax --- per prendere il flag della checkbox SE e' checckato 
@@ -409,53 +353,144 @@
             });
             
         });
+                   
+        // DELETE item on trash button click   
+        $(document).on("click", '.delete-btn', function (e) {
+            e.preventDefault();
 
-        // $(document).ready( function(){
-         
-            
-            
-            
-            $(document).on("click", '.delete-btn', function (e) {
-                e.preventDefault();
-                console.log('clicked on delete');
+            console.log('clicked on delete');
 
-                let url = '{{ route('delete.item') }}';
-                let deleteBtn = $('.delete-btn');
+            let url = '{{ route('delete.item') }}';
+            let deleteBtn = $('.delete-btn');
 
-                let deleteRow = $(this).closest('.body-row');
-                let cartId = $(this).closest('.body-row').attr('cartId');
+            let deleteRow = $(this).closest('.body-row');
+            let cartId = $(this).closest('.body-row').attr('cartId');
 
-                //delete frontend when ajax call is succeded!!
-                // $(this.closest('.body-row')).empty();
+            //delete frontend when ajax call is succeded!!
+            // $(this.closest('.body-row')).empty();
 
 
-                $.ajax({
-                    url: url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    },
-                    method:"DELETE",
+            $.ajax({
+                url: url,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                method:"DELETE",
 
-                    data: {
-                        cartId : cartId,
-                        // products : 
-                    },
+                data: {
+                    cartId : cartId,
+                    // products : 
+                },
 
-                    dataType:'json',
-                    // encode: true,
-                    // contentType: false, //come processData
-                    cache: true,
-                    // processData: false, //questo paramentro non ammette a jquery di processare gli oggertti che mando in chiamata... non arrivavano al controller
+                dataType:'json',
+                // encode: true,
+                // contentType: false, //come processData
+                cache: true,
+                // processData: false, //questo paramentro non ammette a jquery di processare gli oggertti che mando in chiamata... non arrivavano al controller
+                
+                success:function(response){
                     
-                    success:function(response){
-                        
-                        console.log(response); 
-                        //delete frontend when ajax call is succeded!!
-                        $(deleteRow.empty());
-                       
-                    }
-                });
+                    console.log(response); 
+                    //delete frontend when ajax call is succeded!!
+                    $(deleteRow.remove());
+                    generateReceipt();
+                }
             });
+        });
+
+        $(document).on("click", '#generate-receipt', function (e) {
+                e.preventDefault();
+                console.log('CLICK');
+                generateReceipt()
+        });
+
+        function generateReceipt() {
+            
+
+            let table = $('.tbody'); 
+
+            let tRow = $('.body-row'); 
+            console.log(tRow);
+
+            let totPrices = [];
+            let totTaxes = [];
+            
+            for (let i = 0; i < tRow.length; i++) {
+                // console.log(tRow[i]);
+
+                // $(tRow[i]).find('.body-row').attr('cartid')
+                let div = $(tRow[i]).find('.body-row').context;
+                let cartId = div.getAttribute("cartid");
+                
+                let stringPrice = $(tRow[i]).find(".price").text();
+                let stringTax = $(tRow[i]).find(".tax").text();
+
+                let tax = convert(stringTax);
+                let novatprice = convert(stringPrice);
+                
+                //final prices tax. incl.
+                let price = novatprice + tax;
+                
+
+                totPrices.push(price);
+                totTaxes.push(tax);
+
+
+                // @if (true)
+                //     console.log( {!! json_encode($products, JSON_HEX_TAG) !!} );
+                // @endif
+
+                
+            }
+
+
+            let prices = totPrices.reduce((partialSum, a) => partialSum + a, 0);
+            let taxes = totTaxes.reduce((partialSum, a) => partialSum + a, 0);
+
+
+            // console.log(prices);
+            // console.log(taxes);
+
+            let amountDiv = $('#totalAmounts #amount');
+            let taxesDiv = $('#totalAmounts #taxes');
+            // console.log(prices);
+            // console.log(taxesDiv);
+
+
+            $(amountDiv).text("$ "+prices.toFixed(2));
+            $(taxesDiv).text("$ "+taxes.toFixed(2));
+
+
+        };
+
+    // Conversione da prezzo stringa a float -- che perla.
+    function convert(currency) {
+        let k, temp;
+    
+        // Loop to make substring
+        for (let i = 0; i < currency.length; i++) {
+            // Getting Unicode value
+            k = currency.charCodeAt(i);
+    
+            // Checking whether the character
+            // is of numeric type or not
+            if (k > 47 && k < 58) {
+                // Making substring
+                temp = currency.substring(i);
+                break;
+            }
+        }
+    
+        // If currency is in format like
+        // 458, 656.75 then we used replace
+        // method to replace every ', ' with ''
+        temp = temp.replace(/, /, "");
+    
+        // Converting string to float
+        // or double and return
+        return parseFloat(temp);
+    }
+
 
     </script>
     
