@@ -148,7 +148,7 @@ class HomeController extends Controller
                                 if($cart_items[$i]['imported'] === 1){
                             
                                     $tax = round(($price*$import_duty/100), 2);
-                                    $cart_items[$i]['tax'] = $this->rndfn($tax);
+                                    $cart_items[$i]['tax'] = number_format((float) $this->rndfn($tax), 2);
     
                                 } else {
                                     $cart_items[$i]['tax'] = 0.00;
@@ -161,12 +161,12 @@ class HomeController extends Controller
                                 if($cart_items[$i]['imported'] === 1){
                                 
                                     $tax = round(($price*($vat + $import_duty)/100), 2);
-                                    $cart_items[$i]['tax'] = $this->rndfn($tax);
+                                    $cart_items[$i]['tax'] = number_format((float) $this->rndfn($tax),2);
                                 
                                 } else {
 
                                     $tax = round(($price*$vat/100), 2);
-                                    $cart_items[$i]['tax'] = $this->rndfn($tax);
+                                    $cart_items[$i]['tax'] = number_format((float) $this->rndfn($tax));
                                 }
                                 
                                 break;
