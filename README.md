@@ -14,7 +14,7 @@ The platform relies on Laravel 10, written in PHP 8.2 and the project interacts 
 
 Frontend is compiled with Vite, a newer alternative to Laravel Mix that keeps listening for every change on files, compiling them on live.
 
-For the CSS, Tailwind is chosen as framework due to its easy usability and customizability
+For the CSS, Tailwind is chosen as framework due to its easy usability and customizability.
 
 ### Technological Stacks
 
@@ -37,13 +37,15 @@ For the CSS, Tailwind is chosen as framework due to its easy usability and custo
     
 ## Launching
 
-For launching this application you need to create your local database and
-clone this repo from Github (https://github.com/EddieFreedome/instilla-sales-taxes) and open with an IDE (maybe VSCode).
+For launching this application you need to create your local database and clone this repo from Github (https://github.com/EddieFreedome/instilla-sales-taxes) and open with an IDE (maybe VSCode).
 
 Go to the .env file and replace DB_NAME and PORTS to correctly connect to the database.
 
+Launch `php artisan key:generate`.
+
 After that, make sure you run all migrations with 
 `php artisan migrate`.
+
 Done the migrations open a terminal and execute these commands:
 
 `composer install`
@@ -58,10 +60,6 @@ To run local server launch:
 
 You did it.
 
-
-## Extra Implementations
-
-//
 
 ## Contributing
 
