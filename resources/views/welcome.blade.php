@@ -157,11 +157,11 @@
                                     
             
                                     <div class="col-span-2 text-end md:py-6">
-                                        <p class="price"> {{ '$ '.$item['price'] }} </p>
+                                        <p class="price"> {{ '$ '.number_format((float)$item['price'], 2, '.', '') }} </p>
                                     </div>
 
                                     <div class="col-span-2 text-end md:py-6">
-                                        <p class="tax"> {{ '$ '.$item['tax'] }} </p>
+                                        <p class="tax"> {{ '$ '.number_format((float) $item['tax'], 2, '.', '') }} </p>
                                     </div>
                                     
                                         
