@@ -33,17 +33,20 @@
 
         <nav class='min-h-nav sticky top-0 w-full bg-white p-6 rounded-bl-48 rounded-br-48  mb-10 sm:mb-1 shadow-md shadow-gray-500/10 z-50 '>
 
-            <div class="container mx-auto flex items-center justify-between">
+            <div class="container mx-auto flex items-center justify-center
+                        md:justify-between">
 
-                <a href='/sto' class='flex-center'>
+                <a href='' class='flex-center'>
                     <img
                         src='images/instilla-logo-color.svg'
                         alt='logo'
-                        class='object-contain md:h-12 '
+                        class='object-contain h-12'
                     />
                 </a>
 
-                <a class="text-instilla font-bold" href="/">
+                <a class="text-instilla font-bold text-xs hidden
+                            md:block md:text-base " 
+                    href="/">
                     SALES TAXES PROBLEM
                 </a>
                 
@@ -55,7 +58,15 @@
 
             <section class="container mx-auto mb-28">
                 
-                <h1 class="md:text-5xl font-bold md:mt-5 md:mb-28">Products catalogue</h1>
+                <h1 class="
+                    text-3xl
+                    text-center
+                    mb-10
+                    
+                    md:text-5xl 
+                    font-bold 
+                    md:mt-5 
+                    md:mb-28">Products catalogue</h1>
     
                 <div class="card-container grid grid-cols-4 gap-9 ">
     
@@ -89,10 +100,11 @@
                                 <meta name="csrf-token" content="{{ csrf_token() }}">
 
                                 {{csrf_field()}}
-                                <div class="flex">
+                                <div class="card-duty relative flex">
                                     <input class="cardId" type="hidden" cardId="{{ $i+1 }}">
                                     <input class="import-duty" type='hidden' name='import-duty' value="0">
-                                    <input class="import-duty" type="checkbox" name="import-duty" value="1" >
+                                    <input class="import-duty checkmark" type="checkbox" name="import-duty" value="1" >
+                                    <span class="checkmark custom-rad"></span>
                                     <label class="pl-1" for="import-duty">Apply import duty</label>
                                     
                                 </div>
