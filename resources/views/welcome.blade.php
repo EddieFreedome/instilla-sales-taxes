@@ -34,7 +34,7 @@
         <nav class='min-h-nav sticky top-0 w-full bg-white p-6 rounded-bl-48 rounded-br-48  mb-10 sm:mb-1 shadow-md shadow-gray-500/10 z-50 '>
 
             <div class="container mx-auto flex items-center justify-center
-                        md:justify-between">
+                        sm:justify-between">
 
                 <a href='' class='flex-center'>
                     <img
