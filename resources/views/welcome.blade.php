@@ -235,17 +235,17 @@
 
                 {{-- RECEIPT section --}}
                 <div class="md:mt-10 grid grid-cols-12">
-                    <div class="hidden sm:col-span-5"></div>
+                    <div class="max-sm:hidden sm:col-span-5"></div>
                     
-                    <div class="col-span-12 mx-auto sm:col-span-7 bg-white px-2 sm:px-0 sm:pl-10 py-10 custom-rad shadow-md shadow-gray-500/10">
+                    <div class="col-span-12 sm:col-span-7 bg-white px-2 sm:px-0 sm:pl-10 py-10 custom-rad shadow-md shadow-gray-500/10">
                         
-                        <div class="sm:hidden text-start text-xl 
+                        <div class="max-sm:px-12 sm:hidden text-start text-xl max-sm:mb-3
                                         sm:text-3xl font-bold">
                                 Receipt
                         </div>
                         
                         
-                            <div id="totalAmounts" class="grid grid-cols-12 sm:grid-cols-7 sm:px-10 ">
+                            <div id="totalAmounts" class="grid grid-cols-12 sm:grid-cols-7 sm:px-10 max-sm:px-12">
 
 
 
@@ -254,7 +254,8 @@
                                     Receipt
                                 </div>
 
-                                <div class="col-span-9  sm:max-sm:flex">
+                                
+                                <div class="col-span-9  max-sm:flex">
                                     
                                     <div class="col-span-2 flex flex-col text-start">
                                         <h1 class="text-2xl font-bold">
@@ -263,7 +264,7 @@
                                         <p >Including taxes</p>
                                     </div>
         
-                                    <div id="totalPrices" class="col-span-1 text-end ">
+                                    <div id="totalPrices" class="max-sm:hidden col-span-1 text-end ">
                                         <h1 id="amount" class="text-xl sm:text-2xl font-bold  ">
                                             $ 00.00
                                         </h1>
@@ -272,6 +273,15 @@
                                         </p>
                                     </div>
 
+                                </div>
+
+                                <div id="totalPrices" class="col-span-3 text-end ">
+                                    <h1 id="amount" class="text-xl sm:text-2xl font-bold  ">
+                                        $ 00.00
+                                    </h1>
+                                    <p id="taxes">
+                                        $ 00.00 
+                                    </p>
                                 </div>
                                 
                             </div>
