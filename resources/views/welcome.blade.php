@@ -225,8 +225,8 @@
 
 
 
-                <div class="text-center w-full sm:text-end sm:w-full">
-                    <button id="generate-receipt" class="cart-btn w-1/4 inline-block text-center ml-9"> GENERATE RECEIPT </button>
+                <div class="max-sm:text-center w-full sm:text-end ">
+                    <button id="generate-receipt" class="cart-btn max-sm:my-2 max-sm:px-3 sm:w-1/4 inline-block text-center ml-9"> GENERATE RECEIPT </button>
                 </div>
 
 
@@ -237,36 +237,44 @@
                 <div class="md:mt-10 grid grid-cols-12">
                     <div class="hidden sm:col-span-5"></div>
                     
-                    <div class="col-span-12 mx-auto sm:col-span-7 bg-white px-10 sm:px-0 sm:pl-10 py-10 custom-rad shadow-md shadow-gray-500/10">
+                    <div class="col-span-12 mx-auto sm:col-span-7 bg-white px-2 sm:px-0 sm:pl-10 py-10 custom-rad shadow-md shadow-gray-500/10">
                         
-                        <div id="totalAmounts" class="grid grid-cols-12 sm:grid-cols-7 sm:px-10 ">
-
-
-
-                            <div class="col-span-3 text-start text-xl 
+                        <div class="sm:hidden text-start text-xl 
                                         sm:text-3xl font-bold">
                                 Receipt
-                            </div>
+                        </div>
+                        
+                        
+                            <div id="totalAmounts" class="grid grid-cols-12 sm:grid-cols-7 sm:px-10 ">
 
-                            <div class="col-span-9 sm:max-sm:flex">
+
+
+                                <div class="hidden sm:block col-span-3 text-start text-xl 
+                                            sm:text-3xl font-bold">
+                                    Receipt
+                                </div>
+
+                                <div class="col-span-9  sm:max-sm:flex">
+                                    
+                                    <div class="col-span-2 flex flex-col text-start">
+                                        <h1 class="text-2xl font-bold">
+                                            Total amount
+                                        </h1>
+                                        <p >Including taxes</p>
+                                    </div>
+        
+                                    <div id="totalPrices" class="col-span-1 text-end ">
+                                        <h1 id="amount" class="text-xl sm:text-2xl font-bold  ">
+                                            $ 00.00
+                                        </h1>
+                                        <p id="taxes">
+                                            $ 00.00 
+                                        </p>
+                                    </div>
+
+                                </div>
                                 
-                                <div class="col-span-2 flex flex-col text-start">
-                                    <h1 class="text-2xl font-bold">
-                                        Total amount
-                                    </h1>
-                                    <p >Including taxes</p>
-                                </div>
-    
-                                <div id="totalPrices" class="col-span-1 text-end ">
-                                    <h1 id="amount" class=" text-2xl font-bold  ">
-                                        $ 00.00
-                                    </h1>
-                                    <p id="taxes">
-                                        $ 00.00 
-                                    </p>
-                                </div>
                             </div>
-
 
 
 
