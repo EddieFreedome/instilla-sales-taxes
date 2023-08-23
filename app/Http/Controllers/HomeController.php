@@ -136,6 +136,7 @@ class HomeController extends Controller
                         $cart_items[$i]['name'] = $product['name'];
                         $cart_items[$i]['price'] = $product['price'];
                         $cart_items[$i]['category'] = $product['category'];
+                        $cart_items[$i]['image'] = $product['image'];
 
 
                         $price = $cart_items[$i]['price'];

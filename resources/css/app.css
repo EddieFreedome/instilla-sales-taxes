@@ -89,7 +89,10 @@ a i {
     border-radius: 6px;
     box-shadow:  black;
 }
-
+/* 
+.sm-card-container {
+    padding-left: 1;
+} */
 
 /* Hide the browser's default checkbox */
 

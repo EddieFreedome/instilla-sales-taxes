@@ -56,7 +56,7 @@
         
         <main class="">
 
-            <section class="container mx-auto mb-28">
+            <section class="container mx-auto mb-12 sm:mb-28">
                 
                 <h1 class="
                     text-3xl
@@ -66,17 +66,23 @@
                     md:text-5xl 
                     font-bold 
                     md:mt-5 
-                    md:mb-28">Products catalogue</h1>
+                    md:mb-28">
+                Products catalogue</h1>
     
-                <div class="card-container grid grid-cols-4 gap-9 ">
+                <div class="card-container px-6 sm:grid grid-cols-2 gap-3 
+                            sm:grid-cols-4 sm:gap-9 ">
     
+
+
+
                     @for($i = 0; $i < count($products); $i++)
                         
-                        <div class="card" productId="{{ $i }}">
+                        <div class="card  md:block max-sm:flex  " productId="{{ $i }}">
                             
                             
-                            <div class="img-container relative h-56   bg-white ">
-                                <img class="shadow-sm shadow-black/30 h-full w-full object-contain" src="{{ $products[$i]['image'] }}" alt="">
+                            <div class="img-container relative h-56 bg-white ">
+
+                                <img class="shadow-sm shadow-black/30 h-full w-full object-contain aspect-square  " src="{{ $products[$i]['image'] }}" alt="">
 
                                 <div class="bg-black custom-rad p-2  text-white text-xs flex items-center justify-center absolute bottom-2 left-2">
                                     <i class="fa fa-tag mr-2" aria-hidden="true"></i>
@@ -87,29 +93,31 @@
         
 
 
+                            <div class="desc-container shrink-0 max-sm:p-6 md:p-0">
 
-                            <h3 class="card-title md:text-2xl font-bold ">
-                                {{ $products[$i]['name'] }}
-                            </h3>
-        
-                            <p class="price">
-                                {{ '$ '.$products[$i]['price'] }}
-                            </p>
-
-                            <form class="card-form" action=" {{ route('add.cart') }} " method="POST" novalidate="novalidate">
-                                <meta name="csrf-token" content="{{ csrf_token() }}">
-
-                                {{csrf_field()}}
-                                <div class="card-duty relative flex">
-                                    <input class="cardId" type="hidden" cardId="{{ $i+1 }}">
-                                    <input class="import-duty" type='hidden' name='import-duty' value="0">
-                                    <input class="import-duty checkmark" type="checkbox" name="import-duty" value="1" >
-                                    <span class="checkmark custom-rad"></span>
-                                    <label class="pl-1" for="import-duty">Apply import duty</label>
-                                    
-                                </div>
-                            <button class="cart-btn md:mt-5 inline-block text-center w-full cursor-pointer" >ADD TO CART</button>
-                            </form>
+                                <h3 class="card-title md:text-2xl font-bold ">
+                                    {{ $products[$i]['name'] }}
+                                </h3>
+            
+                                <p class="price">
+                                    {{ '$ '.$products[$i]['price'] }}
+                                </p>
+    
+                                <form class="card-form" action=" {{ route('add.cart') }} " method="POST" novalidate="novalidate">
+                                    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+                                    {{csrf_field()}}
+                                    <div class="card-duty relative flex">
+                                        <input class="cardId" type="hidden" cardId="{{ $i+1 }}">
+                                        <input class="import-duty" type='hidden' name='import-duty' value="0">
+                                        <input class="import-duty checkmark" type="checkbox" name="import-duty" value="1" >
+                                        <span class="checkmark custom-rad"></span>
+                                        <label class="pl-1" for="import-duty">Apply import duty</label>
+                                        
+                                    </div>
+                                    <button class="cart-btn md:mt-5 inline-block text-center w-full cursor-pointer" >ADD TO CART</button>
+                                </form>
+                            </div>
                         </div>
 
                     @endfor
@@ -124,20 +132,24 @@
 
             <section class="container mx-auto mb-24">
 
-                <h1 class="md:text-5xl font-bold md:mt-5 md:mb-5">Selected Products</h1>
+                <h1 class="text-center text-2xl font-bold mb-5
+                            sm:text-left md:text-5xl md:mt-5 ">Selected Products</h1>
 
 
                 {{-- CUSTOM TABLE --}}
-                <div class="custom-table custom-rad md:px-10 md:py-6 grid bg-white md:mb-10 w-full md:mt-10 shadow-md shadow-gray-500/10">
+                <div class="mx-3 px-5 py-6 bg-white custom-table custom-rad grid shadow-md shadow-gray-500/10
+                sm:mx-0 sm:py-0 sm:px-0 md:px-10 md:py-6 md:mb-10 md:mt-10 sm:w-full">
 
+                    
+                
                     {{-- table head --}}
-                    <div class="thead grid grid-cols-12 ">   
+                    <div class="thead grid grid-cols-12">   
 
-                        <div class="col-span-6">PRODUCT</div>
-                        <div class="col-span-1 text-start">IMPORTED</div>
-                        <div class="col-span-2 text-end">PRICE</div>
-                        <div class="col-span-2 text-end">TAX</div>
-                        <div class="col-span-1"></div>
+                        <div class="col-span-4 sm:col-span-6">PRODUCT</div>
+                        <div class="col-span-3 text-end sm:col-span-1 sm:text-start">IMPORTED</div>
+                        <div class="col-span-3 text-center sm:col-span-2 ">PRICE</div>
+                        <div class="col-span-1 text-end sm:col-span-2">TAX</div>
+                        <div class="col-span-1 sm:col-span-1"></div>
 
                     </div>
 
@@ -152,9 +164,23 @@
                         
                             @foreach($cart_items as $item)
                         
-                                <div class="body-row grid grid-cols-12" cartId= {{$item['id']}}>
+                                <div class="py-2 sm:py-0 body-row grid grid-cols-12 max-sm:items-center" cartId= {{$item['id']}}>
+                                    
+                                    {{-- Img for mobile --}}
+                                    <div class="col-span-2 max-sm:relative sm:hidden img-container  max-h-10  sm:h-56 bg-white p-2">
 
-                                    <div class="col-span-6 md:py-6 font-bold">
+                                        <img class="shadow-sm shadow-black/30 h-full w-full object-cover sm:object-contain  aspect-square  " src="{{ $item['image'] }}" alt="">
+        
+                                        {{-- <div class="bg-black custom-rad p-2  text-white text-xs flex items-center justify-center absolute bottom-2 left-2">
+                                            <i class="fa fa-tag mr-2" aria-hidden="true"></i>
+                                            <p class="text-white"> {{ strtoupper( str_replace("-", " ", $products[$i]['category']) ) }} </p>
+                                            <p class="text-white"> {{ strtoupper( str_replace("-", " ", $products[$i]['category']) ) }} </p>
+             
+                                        </div> --}}
+                                    </div>
+
+
+                                    <div class="col-span-4 md:py-6 font-bold">
                                         <p class="name">{{ $item['name'] }}</p>
                                     </div>
                                     
@@ -199,7 +225,7 @@
 
 
 
-                <div class="text-end w-full">
+                <div class="text-center w-full sm:text-end sm:w-full">
                     <button id="generate-receipt" class="cart-btn w-1/4 inline-block text-center ml-9"> GENERATE RECEIPT </button>
                 </div>
 
@@ -209,37 +235,46 @@
 
                 {{-- RECEIPT section --}}
                 <div class="md:mt-10 grid grid-cols-12">
-                    <div class="col-span-5"></div>
+                    <div class="hidden sm:col-span-5"></div>
                     
-                    <div class="col-span-7 bg-white pl-10 py-10 custom-rad shadow-md shadow-gray-500/10">
+                    <div class="col-span-12 mx-auto sm:col-span-7 bg-white px-10 sm:px-0 sm:pl-10 py-10 custom-rad shadow-md shadow-gray-500/10">
                         
-                        <div id="totalAmounts" class="grid grid-cols-7 px-10 ">
+                        <div id="totalAmounts" class="grid grid-cols-12 sm:grid-cols-7 sm:px-10 ">
 
-                            <div class="col-span-3 text-start text-3xl font-bold">
+
+
+                            <div class="col-span-3 text-start text-xl 
+                                        sm:text-3xl font-bold">
                                 Receipt
                             </div>
 
-                            <div class="col-span-2 flex flex-col text-start">
-                                <h1 class="text-2xl font-bold">
-                                    Total amount
-                                </h1>
-                                <p >Including taxes</p>
+                            <div class="col-span-9 sm:max-sm:flex">
+                                
+                                <div class="col-span-2 flex flex-col text-start">
+                                    <h1 class="text-2xl font-bold">
+                                        Total amount
+                                    </h1>
+                                    <p >Including taxes</p>
+                                </div>
+    
+                                <div id="totalPrices" class="col-span-1 text-end ">
+                                    <h1 id="amount" class=" text-2xl font-bold  ">
+                                        $ 00.00
+                                    </h1>
+                                    <p id="taxes">
+                                        $ 00.00 
+                                    </p>
+                                </div>
                             </div>
-
-                            <div id="totalPrices" class="col-span-2 text-end ">
-                                <h1 id="amount" class=" text-2xl font-bold  ">
-                                    $ 00.00
-                                </h1>
-                                <p id="taxes">
-                                    $ 00.00 
-                                </p>
-                            </div>
-
 
 
 
 
                         </div>
+
+
+
+
                     
                     </div>
 
