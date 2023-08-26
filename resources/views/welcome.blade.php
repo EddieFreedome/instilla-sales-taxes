@@ -147,7 +147,7 @@
 
                         <div class="col-span-4 sm:col-span-6">PRODUCT</div>
                         <div class="col-span-3 text-end sm:col-span-1 sm:text-start">IMPORTED</div>
-                        <div class="col-span-3 text-center sm:col-span-2 ">PRICE</div>
+                        <div class="col-span-3 max-sm:text-center text-end sm:col-span-2 ">PRICE</div>
                         <div class="col-span-1 text-end sm:col-span-2">TAX</div>
                         <div class="col-span-1 sm:col-span-1"></div>
 
@@ -180,7 +180,7 @@
                                     </div>
 
 
-                                    <div class="col-span-4 md:py-6 font-bold">
+                                    <div class="col-span-4 sm:col-span-6 sm:py-6 font-bold">
                                         <p class="name">{{ $item['name'] }}</p>
                                     </div>
                                     
@@ -234,12 +234,58 @@
 
 
                 {{-- RECEIPT section --}}
-                <div class="md:mt-10 grid grid-cols-12">
+                <div class="md:mt-10 grid grid-cols-12 max-sm:mx-4">
+                    <div class="max-sm:hidden col-span-5"></div>
+                    
+                    <div class=" col-span-12
+                    sm:col-span-7 bg-white sm:pl-10 py-10 custom-rad shadow-md shadow-gray-500/10 sm:items-center">
+                        
+
+
+                        <div id="totalAmounts" class=" max-sm:grid-cols-12
+                        grid sm:grid-cols-7 px-10 ">
+
+                            <div class=" max-sm:hidden
+                            col-span-3 text-start text-3xl font-bold">
+                                Receipt
+                            </div>
+
+                            <div class="col-span-6
+                            sm:col-span-2 flex flex-col text-start">
+                                
+                                <h1 class="
+                                text-2xl font-bold sm:pb-3">
+                                    Total amount
+                                </h1>
+                                <p >Including taxes</p>
+                            </div>
+
+                            <div id="totalPrices" class="col-span-6 sm:col-span-2 text-end ">
+                                <h1 id="amount" class=" text-2xl font-bold sm:pb-3">
+                                    $ 00.00
+                                </h1>
+                                <p id="taxes">
+                                    $ 00.00 
+                                </p>
+                            </div>
+
+
+
+
+
+                        </div>
+                    
+                    </div>
+
+                </div>
+
+
+                {{-- <div class="md:mt-10 grid grid-cols-12">
                     <div class="max-sm:hidden sm:col-span-5"></div>
                     
                     <div class="col-span-12 sm:col-span-7 bg-white px-2 sm:px-0 sm:pl-10 py-10 custom-rad shadow-md shadow-gray-500/10">
                         
-                        <div class="max-sm:px-12 sm:hidden text-start text-xl max-sm:mb-3
+                        <div class="max-sm:px-12 block sm:hidden text-start text-xl max-sm:mb-3
                                         sm:text-3xl font-bold">
                                 Receipt
                         </div>
@@ -249,13 +295,33 @@
 
 
 
-                                <div class="hidden sm:block col-span-3 text-start text-xl 
+                                <div class="hidden sm:inline col-span-3 text-start text-xl 
                                             sm:text-3xl font-bold">
                                     Receipt
                                 </div>
 
-                                
-                                <div class="col-span-9  max-sm:flex">
+                                <div class="col-span-7  max-sm:flex">
+                                   
+                                    <div class="col-span-2 flex flex-col text-start">
+                                        <h1 class="text-2xl font-bold">
+                                            Total amount
+                                        </h1>
+                                        <p >Including taxes</p>
+                                    </div>
+        
+                                    <div id="totalPrices" class="max-sm:hidden col-span-1 text-end ">
+                                        <h1 id="amount" class="text-xl sm:text-2xl font-bold  ">
+                                            $ 00.00
+                                        </h1>
+                                        <p id="taxes">
+                                            $ 00.00 
+                                        </p>
+                                    </div> 
+
+                                </div>
+
+
+                                <div class="col-span-9  max-sm:flex sm:hidden">
                                     
                                     <div class="col-span-2 flex flex-col text-start">
                                         <h1 class="text-2xl font-bold">
@@ -275,7 +341,7 @@
 
                                 </div>
 
-                                <div id="totalPrices" class="col-span-3 text-end ">
+                                <div id="totalPrices" class="col-span-3 text-end sm:hidden ">
                                     <h1 id="amount" class="text-xl sm:text-2xl font-bold  ">
                                         $ 00.00
                                     </h1>
@@ -296,7 +362,7 @@
                     
                     </div>
 
-                </div>
+                </div> --}}
 
             </section>
 
