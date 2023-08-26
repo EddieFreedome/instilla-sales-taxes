@@ -237,7 +237,6 @@ class HomeController extends Controller
                     $new_item->price = $products[$i]['price'];
                     $new_item->category = $products[$i]['category'];
                     $new_item->imported = $imported;
-    
                     $price = $new_item->price;
 
                     // tax calculator --> function soon
@@ -280,7 +279,11 @@ class HomeController extends Controller
                     } else {
                         $new_item->imported = "No";
                     };
+
+                    
+                    $new_item->image = $products[$i]['image'];
                 };
+
             }
    
             

@@ -171,12 +171,7 @@
 
                                         <img class="shadow-sm shadow-black/30 h-full w-full object-cover sm:object-contain  aspect-square  " src="{{ $item['image'] }}" alt="">
         
-                                        {{-- <div class="bg-black custom-rad p-2  text-white text-xs flex items-center justify-center absolute bottom-2 left-2">
-                                            <i class="fa fa-tag mr-2" aria-hidden="true"></i>
-                                            <p class="text-white"> {{ strtoupper( str_replace("-", " ", $products[$i]['category']) ) }} </p>
-                                            <p class="text-white"> {{ strtoupper( str_replace("-", " ", $products[$i]['category']) ) }} </p>
-             
-                                        </div> --}}
+                                        
                                     </div>
 
 
@@ -444,35 +439,42 @@
                             
                             $('.tbody').append(`
                                 
-                                <div class="body-row grid grid-cols-12" cartId= ${savedItem['id']}>
+                                <div class="py-2 sm:py-0 body-row grid grid-cols-12 max-sm:items-center" cartId= ${savedItem['id']}>
 
-                                    <div class="col-span-6 md:py-6 font-bold">
-                                            <p class="name">  ${savedItem['name']} </p>
-                                        </div>
-                                        
-                                        {{-- Imported --}}
-                                        <div class="col-span-1 text-start md:py-6">
-                                           <p>${savedItem.imported}</p>
-                                        </div>    
-                                        
-                                        
-                                        <div class="col-span-2 text-end md:py-6">
-                                            <p class="price">  $ ${savedItem['price']} </p>
-                                        </div>
+                                    <div class="col-span-2 max-sm:relative sm:hidden img-container  max-h-10  sm:h-56 bg-white p-2">
 
-                                        <div class="col-span-2 text-end md:py-6">
-                                            <p class="tax">$ ${savedItem['tax']} </p>
-                                        </div>
+                                        <img class="shadow-sm shadow-black/30 h-full w-full object-cover sm:object-contain  aspect-square" src=${savedItem['image']} alt="${savedItem['name']}">
+
+                                    </div>
+
+
+                                    <div class="col-span-4 sm:col-span-6 sm:py-6 font-bold">
+                                        <p class="name">  ${savedItem['name']} </p>
+                                    </div>
+                                    
+                                    
+                                    <div class="col-span-1 text-start md:py-6">
+                                        <p class="imported">${savedItem.imported}</p>
+                                    </div>    
+                                    
+                                    
+                                    <div class="col-span-2 text-end md:py-6">
+                                        <p class="price">  $ ${savedItem['price']} </p>
+                                    </div>
+
+                                    <div class="col-span-2 text-end md:py-6">
+                                        <p class="tax">$ ${savedItem['tax']} </p>
+                                    </div>
+                                    
                                         
-                                            
-                
-                                        <div class="col-span-1 text-end md:py-6">
-                                            
-                                            <button class="delete-btn cursor-pointer text-red-600">
-                                                <i class="col-span-1 fa fa-trash h-3 ml-2" aria-hidden="true"></i>
-                                            </button>
-                
-                                        </div>
+            
+                                    <div class="col-span-1 text-end md:py-6">
+                                        
+                                        <button class="delete-btn cursor-pointer text-red-600">
+                                            <i class="col-span-1 fa fa-trash h-3 ml-2" aria-hidden="true"></i>
+                                        </button>
+            
+                                    </div>
                                 </div>
                             `);
                                                         
