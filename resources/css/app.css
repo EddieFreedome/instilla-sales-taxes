@@ -40,24 +40,6 @@ th, td {
     padding: 12px 24px;
 }
 
-/* th {
-    border-bottom: 1px solid rgba(119, 136, 153, 0.496);
-} */
-
-
-/* per html table
-tr td:nth-child(3) {
-    text-align: center;
-} */
-
-/* tr td:nth-child(4) {
-    text-align: center;
-}
-
-tr td:nth-child(1) {
-    font-weight: 600;
-} */
-
 
 /* custom table */
 
@@ -89,18 +71,50 @@ a i {
     border-radius: 6px;
     box-shadow:  black;
 }
-/* 
-.sm-card-container {
-    padding-left: 1;
-} */
 
-/* Hide the browser's default checkbox */
 
-/* .tbody {
+/* CUSTOM CHECKBOX */
 
-} */
 
-/* border-top: 1px solid black; */
-/* .tr, .tr div {
-    padding: 12px 24px;
+/* input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: lightblue;
+  }
+
+input:checked ~ .checkmark {
+background-color: #08c6c0;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+input:checked ~ .checkmark:after {
+    display: block;
+}
+  
+.checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 } */
