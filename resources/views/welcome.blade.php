@@ -428,13 +428,13 @@
                             
                             
                             let savedItem = response.saved_item;
-                            console.log(response);
+                            // console.log(response);
                             
                             let table = $('.tbody');
                             let tableRow = $('.body-row');
 
                             const imported = savedItem['imported'] === 0 ? 'No' : 'Yes';
-                            console.log(imported);
+                            // console.log(imported);
                             // console.log(tableRow);
                             
                             $('.tbody').append(`
@@ -533,7 +533,7 @@
 
         $(document).on("click", '#generate-receipt', function (e) {
                 e.preventDefault();
-                console.log('CLICK');
+                // console.log('CLICK');
                 generateReceipt()
         });
 
@@ -543,7 +543,7 @@
             let table = $('.tbody'); 
 
             let tRow = $('.body-row'); 
-            console.log(tRow);
+            // console.log(tRow);
 
             let totPrices = [];
             let totTaxes = [];
