@@ -2,7 +2,25 @@
 // import { intersection } from "lodash";
 
 
-$(function (){
+$(function (e){
+    e.preventDefault
+    let textTag = $('.textTag');
+
+    textTag.each(function (index, element) {
+        
+       console.log(element, index); 
+
+       let el = $(element).text();
+       console.log($(element).text()); //correct in retrieving text 
+
+        if (el.length > 12) {
+            // console.log(true);
+            $($(element).parent()).addClass("mr-10");
+            // console.log(element)
+        }
+
+    });
+
 
     // let a = 1;
     // console.log(a);
